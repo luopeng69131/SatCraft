@@ -1,0 +1,542 @@
+[
+  {
+    "split": "test",
+    "source_id": "test_01",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240621_185918",
+    "b_run": "20240621_185919",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_02",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240621_162519",
+    "b_run": "20240621_162519",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_03",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240621_181215",
+    "b_run": "20240621_181215",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_04",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240621_171319",
+    "b_run": "20240621_171318",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_05",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240622_214732",
+    "b_run": "20240622_214733",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_06",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240623_184700",
+    "b_run": "20240623_184700",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_07",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_141956",
+    "b_run": "20240625_141956",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_08",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_130130",
+    "b_run": "20240625_130130",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_09",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_115018",
+    "b_run": "20240625_115018",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_10",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_154039",
+    "b_run": "20240625_154039",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_11",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_120128",
+    "b_run": "20240625_120129",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_12",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240625_113900",
+    "b_run": "20240625_113900",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_13",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240625_152705",
+    "b_run": "20240625_152705",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_14",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240626_140318",
+    "b_run": "20240626_140318",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_15",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240626_164114",
+    "b_run": "20240626_164115",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_16",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240816_193338",
+    "b_run": "20240816_193338",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_17",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240816_201002",
+    "b_run": "20240816_201002",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_18",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240816_181407",
+    "b_run": "20240816_181407",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_19",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240816_171724",
+    "b_run": "20240816_171724",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_20",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240816_164329",
+    "b_run": "20240816_164330",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_21",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240816_184227",
+    "b_run": "20240816_184227",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_22",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240816_194354",
+    "b_run": "20240816_194354",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_23",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240817_162427",
+    "b_run": "20240817_162427",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_24",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240817_091650",
+    "b_run": "20240817_091650",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_25",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240817_083822",
+    "b_run": "20240817_083823",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_26",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240817_084824",
+    "b_run": "20240817_084824",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_27",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240817_085846",
+    "b_run": "20240817_085847",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_28",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240817_181746",
+    "b_run": "20240817_181746",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_29",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240818_174727",
+    "b_run": "20240818_174727",
+    "segment": 0
+  },
+  {
+    "split": "test",
+    "source_id": "test_30",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240819_110324",
+    "b_run": "20240819_110324",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_01",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240621_182523",
+    "b_run": "20240621_182523",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_02",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240622_211739",
+    "b_run": "20240622_211740",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_03",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240622_204045",
+    "b_run": "20240622_204045",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_04",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240622_200448",
+    "b_run": "20240622_200448",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_05",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240622_213517",
+    "b_run": "20240622_213518",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_06",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240623_183552",
+    "b_run": "20240623_183552",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_07",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_234852",
+    "b_run": "20240625_234852",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_08",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_200543",
+    "b_run": "20240625_200543",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_09",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_134939",
+    "b_run": "20240625_134941",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_10",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_122618",
+    "b_run": "20240625_122618",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_11",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240625_224241",
+    "b_run": "20240625_224241",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_12",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240625_161832",
+    "b_run": "20240625_161833",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_13",
+    "region": "alaska",
+    "carrier": "att",
+    "a_run": "20240626_172142",
+    "b_run": "20240626_172145",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_14",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240626_160551",
+    "b_run": "20240626_160551",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_15",
+    "region": "alaska",
+    "carrier": "verizon",
+    "a_run": "20240626_004449",
+    "b_run": "20240626_004449",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_16",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240816_165356",
+    "b_run": "20240816_165356",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_17",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240816_191212",
+    "b_run": "20240816_191212",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_18",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240816_192326",
+    "b_run": "20240816_192326",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_19",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240817_092807",
+    "b_run": "20240817_092807",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_20",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240817_101819",
+    "b_run": "20240817_101820",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_21",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240817_180754",
+    "b_run": "20240817_180754",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_22",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240818_180956",
+    "b_run": "20240818_180957",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_23",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240818_171454",
+    "b_run": "20240818_171454",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_24",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240818_172526",
+    "b_run": "20240818_172527",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_25",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240818_175759",
+    "b_run": "20240818_175800",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_26",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240818_170419",
+    "b_run": "20240818_170420",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_27",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240818_173628",
+    "b_run": "20240818_173628",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_28",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240819_113546",
+    "b_run": "20240819_113546",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_29",
+    "region": "hawaii",
+    "carrier": "verizon",
+    "a_run": "20240819_112456",
+    "b_run": "20240819_112456",
+    "segment": 0
+  },
+  {
+    "split": "development",
+    "source_id": "development_30",
+    "region": "hawaii",
+    "carrier": "att",
+    "a_run": "20240819_105157",
+    "b_run": "20240819_105157",
+    "segment": 0
+  }
+]

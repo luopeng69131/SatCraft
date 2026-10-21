@@ -1,0 +1,164 @@
+{
+  "calibration_slots": 8,
+  "trees": {
+    "balanced": {
+      "feature": 6,
+      "threshold": 0.24349773074632852,
+      "left": {
+        "feature": 4,
+        "threshold": 0.26980670294554876,
+        "left": {
+          "policy": "policy_17"
+        },
+        "right": {
+          "feature": 0,
+          "threshold": 75.0742625,
+          "left": {
+            "policy": "policy_18"
+          },
+          "right": {
+            "policy": "policy_00"
+          }
+        }
+      },
+      "right": {
+        "feature": 0,
+        "threshold": 96.8306,
+        "left": {
+          "feature": 3,
+          "threshold": 0.24615529754007975,
+          "left": {
+            "policy": "policy_12"
+          },
+          "right": {
+            "policy": "policy_15"
+          }
+        },
+        "right": {
+          "policy": "policy_19"
+        }
+      }
+    },
+    "cpu_pressure": {
+      "feature": 5,
+      "threshold": -0.16154816828919732,
+      "left": {
+        "feature": 0,
+        "threshold": 64.050090625,
+        "left": {
+          "policy": "policy_09"
+        },
+        "right": {
+          "policy": "policy_05"
+        }
+      },
+      "right": {
+        "feature": 6,
+        "threshold": 0.33869072791461075,
+        "left": {
+          "feature": 4,
+          "threshold": 0.307412375528605,
+          "left": {
+            "policy": "policy_11"
+          },
+          "right": {
+            "policy": "policy_04"
+          }
+        },
+        "right": {
+          "feature": 0,
+          "threshold": 93.554675,
+          "left": {
+            "policy": "policy_01"
+          },
+          "right": {
+            "policy": "policy_16"
+          }
+        }
+      }
+    },
+    "network_pressure": {
+      "feature": 10,
+      "threshold": 0.8314338827427027,
+      "left": {
+        "feature": 9,
+        "threshold": 1.0248095431706679,
+        "left": {
+          "feature": 4,
+          "threshold": 0.49756539430703794,
+          "left": {
+            "policy": "policy_08"
+          },
+          "right": {
+            "policy": "policy_18"
+          }
+        },
+        "right": {
+          "feature": 4,
+          "threshold": 0.7167088784548402,
+          "left": {
+            "policy": "policy_12"
+          },
+          "right": {
+            "policy": "policy_14"
+          }
+        }
+      },
+      "right": {
+        "feature": 1,
+        "threshold": 61.30989375,
+        "left": {
+          "feature": 4,
+          "threshold": 0.25572852280464237,
+          "left": {
+            "policy": "policy_18"
+          },
+          "right": {
+            "policy": "policy_10"
+          }
+        },
+        "right": {
+          "policy": "policy_03"
+        }
+      }
+    },
+    "radio_pressure": {
+      "feature": 3,
+      "threshold": 0.17390868042683244,
+      "left": {
+        "feature": 4,
+        "threshold": 0.8291867636284567,
+        "left": {
+          "policy": "policy_13"
+        },
+        "right": {
+          "policy": "policy_00"
+        }
+      },
+      "right": {
+        "feature": 1,
+        "threshold": 39.649249999999995,
+        "left": {
+          "feature": 3,
+          "threshold": 0.6111004497589262,
+          "left": {
+            "policy": "policy_06"
+          },
+          "right": {
+            "policy": "policy_07"
+          }
+        },
+        "right": {
+          "feature": 5,
+          "threshold": 0.059366084614797594,
+          "left": {
+            "policy": "policy_02"
+          },
+          "right": {
+            "policy": "policy_01"
+          }
+        }
+      }
+    }
+  }
+}

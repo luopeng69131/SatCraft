@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "satcraft"
+version = "0.1.0"
+description = "Agentic optimization of joint scheduling policies for satellite–cellular edge services"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "NOTICE"]
+readme = "README.md"
+authors = [{name = "SatCraft contributors"}]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/luopeng69131/SatCraft"
+
+[project.scripts]
+satcraft = "satcraft.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"satcraft.policies" = ["*.json"]
+"satcraft.agent" = ["prompts/*.md"]

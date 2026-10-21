@@ -1,0 +1,24 @@
+SatCraft
+Copyright (c) 2026 SatCraft contributors
+
+Measurement source attribution
+------------------------------
+The source index configs/measurement_sources.json identifies measurement runs
+in the NUWiNS release associated with:
+
+Exploring the 5G Digital Divide in the Non-Contiguous US:
+LEO Satellites to the Rescue? (SIGMETRICS 2026)
+DOI: 10.1145/3771568
+
+Authors: Sizhe Wang, Moinak Ghoshal, Yufei Feng, Imran Khan, Phuc Dinh,
+Omar Basit, Zhekun Yu, Y. Charlie Hu, and Dimitrios Koutsonikolas.
+
+Source:
+https://github.com/NUWiNS/sigmetrics26-exploring-the-5g-digital-divide-in-the-non-contiguous-us-leo-satellites-to-the-rescue
+
+Dataset license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+The source index selects run identifiers and segments from that release.
+Measurement processing groups aligned samples into nominal one-second slots
+and combines selected capacity sequences with generated service workloads.

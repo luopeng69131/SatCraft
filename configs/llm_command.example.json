@@ -1,0 +1,4 @@
+{
+  "command": ["python", "your_llm_client.py"],
+  "timeout_seconds": 900
+}

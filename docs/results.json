@@ -1,0 +1,37 @@
+{
+  "metric": "cumulative completed-service value",
+  "test_cases": 360,
+  "measured_test_traces": 30,
+  "methods": [
+    {
+      "name": "EDF",
+      "completed_service_value": 22848.0,
+      "satcraft_gain_pct": 3.6064425770308217
+    },
+    {
+      "name": "Rolling",
+      "completed_service_value": 22800.0,
+      "satcraft_gain_pct": 3.824561403508775
+    },
+    {
+      "name": "ADPRL",
+      "completed_service_value": 20250.666666666664,
+      "satcraft_gain_pct": 16.89491703976824
+    },
+    {
+      "name": "EdgeOPT",
+      "completed_service_value": 21244.0,
+      "satcraft_gain_pct": 11.42910939559405
+    },
+    {
+      "name": "TF-DDRL",
+      "completed_service_value": 22496.0,
+      "satcraft_gain_pct": 5.227596017069702
+    },
+    {
+      "name": "SatCraft",
+      "completed_service_value": 23672.0,
+      "satcraft_gain_pct": 0.0
+    }
+  ]
+}
