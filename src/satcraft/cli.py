@@ -1,4 +1,4 @@
-"""Command-line entry points for examples, data preparation, and optimization."""
+"""Community entry points for simulation, trace processing and policy construction."""
 
 import argparse
 import json
@@ -15,42 +15,48 @@ def _report(result):
 def main():
     parser = argparse.ArgumentParser(
         prog="satcraft",
-        description="Agentic joint scheduling for satellite–cellular edge services",
+        description="Scheduling policy optimization and service simulation",
     )
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser(
-        "demo", help="Run the frozen policy on generated example scenarios"
+        "demo", help="Simulate a small synthetic service workflow"
     )
     demo.add_argument("--output", default="outputs/demo")
     demo.add_argument("--seed", type=int, default=7)
+    demo.add_argument("--policy", choices=("frozen", "seed"), default="frozen")
     demo.add_argument(
         "--repair-demo",
         action="store_true",
-        help="Replay a supplied policy through the offline repair workflow",
+        help="Pass a supplied policy through the construction workflow",
     )
     prepare = commands.add_parser(
-        "prepare", help="Process locally downloaded NUWiNS traces"
+        "prepare", help="Export locally downloaded trace pairs"
     )
     prepare.add_argument("--dataset-root", required=True)
     prepare.add_argument("--output", required=True)
-    prepare.add_argument("--runs-per-region", type=int, default=15)
+    prepare.add_argument("--region", choices=("alaska", "hawaii"), required=True)
     prepare.add_argument(
-        "--source-manifest", help="Source locators for exact run selection"
+        "--carrier", choices=("att", "verizon", "tmobile"), required=True
     )
-    evaluate = commands.add_parser(
-        "evaluate", help="Evaluate a frozen, bundled, or source policy"
+    prepare.add_argument("--samples-per-slot", type=int, default=2)
+    prepare.add_argument("--sample-period-seconds", type=float, default=0.5)
+    prepare.add_argument("--min-slots", type=int, default=8)
+    prepare.add_argument("--max-gap-seconds", type=float, default=1.0)
+    simulate = commands.add_parser(
+        "simulate",
+        aliases=["evaluate"],
+        help="Run user scenarios with a supplied policy",
     )
-    evaluate.add_argument("--cases", required=True)
-    evaluate.add_argument(
+    simulate.add_argument("--cases", required=True)
+    simulate.add_argument(
         "--policy",
-        default="frozen",
-        help="frozen, a policy.py path, or an exported deployment directory",
+        default="seed",
+        help="seed, frozen, a policy.py path, or an exported deployment directory",
     )
-    evaluate.add_argument("--output", default="outputs/evaluation.json")
-    evaluate.add_argument("--case-limit", type=int)
-    evaluate.add_argument("--trace", action="store_true")
+    simulate.add_argument("--output", default="outputs/simulation.json")
+    simulate.add_argument("--trace", action="store_true")
     optimize = commands.add_parser(
-        "optimize", help="Optimize policy code through complete-execution feedback"
+        "optimize", help="Construct policies using execution feedback"
     )
     optimize.add_argument("--cases", required=True)
     optimize.add_argument("--seed-policy", required=True)
@@ -59,14 +65,11 @@ def main():
         "--provider-config", help="External model-client command JSON"
     )
     provider.add_argument(
-        "--candidate",
-        action="append",
-        help="Replay supplied candidate source files in order",
+        "--candidate", action="append", help="Supplied candidate source"
     )
     optimize.add_argument("--submissions", type=int, default=6)
     optimize.add_argument(
-        "--direction",
-        default="Coordinate computing-output readiness, cellular startup, and resources needed by later service arrivals.",
+        "--direction", default="Coordinate output readiness and cellular use."
     )
     optimize.add_argument("--preset-selector", action="append", default=[])
     optimize.add_argument("--output", required=True)
@@ -79,33 +82,37 @@ def main():
                 prepare(
                     args.dataset_root,
                     args.output,
-                    args.runs_per_region,
-                    args.source_manifest,
+                    args.region,
+                    args.carrier,
+                    args.samples_per_slot,
+                    args.sample_period_seconds,
+                    args.min_slots,
+                    args.max_gap_seconds,
                 ),
                 indent=2,
             )
         )
     elif args.command == "demo":
         from satcraft.data.workload import demo_cases
-        from satcraft.evaluation.replay import evaluate
+        from satcraft.policies import seed
         from satcraft.policies.deployment import frozen_policy
+        from satcraft.simulator import evaluate
 
-        cases = demo_cases(args.seed)
-        output = Path(args.output)
+        cases, output = demo_cases(args.seed), Path(args.output)
         write_json(output / "cases.json", cases)
-        result = evaluate(cases, frozen_policy())
+        policy = frozen_policy() if args.policy == "frozen" else seed.policy
+        result = evaluate(cases, policy)
         write_json(output / "evaluation.json", result)
         _report(result)
         if args.repair_demo:
             from satcraft.agent.optimize import optimize
             from satcraft.agent.providers import FileCandidateProvider
-            from satcraft.policies import seed
-            from satcraft.policies.library import policy_04
 
+            # Reuse the starter source to illustrate submission, checks and export.
             summary = optimize(
                 cases,
                 Path(seed.__file__).read_text(),
-                FileCandidateProvider([policy_04.__file__]),
+                FileCandidateProvider([seed.__file__]),
                 output / "repair",
                 submissions=1,
             )
@@ -114,16 +121,15 @@ def main():
                 raise SystemExit(1)
         if not result["valid"]:
             raise SystemExit(1)
-    elif args.command == "evaluate":
-        from satcraft.evaluation.replay import evaluate, evaluate_source
+    elif args.command in ("simulate", "evaluate"):
+        from satcraft.policies import seed
         from satcraft.policies.deployment import frozen_policy, load_bundle
+        from satcraft.simulator import evaluate, evaluate_source
 
         cases = read_json(args.cases)
-        if args.case_limit is not None:
-            if args.case_limit < 1:
-                parser.error("--case-limit must be positive")
-            cases = cases[: args.case_limit]
-        if args.policy == "frozen":
+        if args.policy == "seed":
+            result = evaluate(cases, seed.policy, log=args.trace)
+        elif args.policy == "frozen":
             result = evaluate(cases, frozen_policy(), log=args.trace)
         elif Path(args.policy).is_dir():
             result = evaluate(cases, load_bundle(args.policy), log=args.trace)

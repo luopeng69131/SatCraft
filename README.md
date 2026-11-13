@@ -4,17 +4,24 @@
 
 ### Agentic Optimization of Scheduling Policies for Satellite–Cellular Edge Services
 
-**Turn service-execution feedback into better joint computation and transmission policies.**
+**Execution-feedback-driven policy optimization and a lightweight service simulator.**
 
+[![arXiv](https://img.shields.io/badge/arXiv-2610.29588-b31b1b.svg)](https://arxiv.org/abs/2610.29588)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-16816A)](LICENSE)
 [![Checks](https://github.com/luopeng69131/SatCraft/actions/workflows/checks.yml/badge.svg)](https://github.com/luopeng69131/SatCraft/actions/workflows/checks.yml)
 
 **English** · [简体中文](README_zh-CN.md)
 
-[Background](#why-joint-scheduling) · [Method](#how-satcraft-works) · [Quick start](#quick-start) · [Measured data](#work-with-starlink-and-cellular-measurements) · [Code guide](docs/architecture.md)
+[Paper](https://arxiv.org/abs/2610.29588) · [Simulator](#satellitecellular-service-simulator) · [Quick start](#quick-start) · [Method](#how-satcraft-works) · [Citation](#citation)
 
 </div>
+
+## Paper
+
+**[SatCraft: Agentic Optimization of Scheduling Policies for Satellite-Cellular Edge Services](https://arxiv.org/abs/2610.29588)**<br>
+Pengcheng Luo, Dengke Deng, Zenghui Zhang, Genke Yang, and Jian Chu<br>
+arXiv:2610.29588, 2026 · [PDF](https://arxiv.org/pdf/2610.29588) · [DOI](https://doi.org/10.48550/arXiv.2610.29588)
 
 ## Why joint scheduling?
 
@@ -27,47 +34,41 @@ right products, adequate quality, and delivery before a shared deadline.
 These decisions interact. Processing saves transmission capacity but delays
 output availability. Activating cellular access too early spends its allowance
 while the output is still being computed. Spending the remaining capacity on
-current tasks can leave later, more valuable services incomplete. **The
-scheduling problem is to coordinate processing modes, computing priorities,
-transmission order, and cellular use around complete service delivery.**
+current tasks can leave later, more valuable services incomplete. **Joint
+scheduling coordinates processing modes, computing priorities, transmission
+order, and cellular use around complete service delivery.**
 
 <p align="center">
-  <img src="docs/assets/background.png" width="960" alt="Inspection services share local computation, satellite access, and intermittent cellular access under quality, deadline, and resource constraints.">
+  <img src="docs/assets/background.png" width="960" alt="Inspection services share computation and satellite/cellular access under quality, deadline and resource constraints.">
 </p>
 
-SatCraft uses a **large language model (LLM) agent** to revise the executable
-scheduling logic from complete-run feedback. It retains valid policies and
-learns when to select them from initial access observations and known resource
-conditions. This connects policy-code improvements to the quality and
-timeliness of delivered services.
+The community implementation brings together the **LLM-agent method**, a
+**trace-driven service simulator**, **20 prebuilt scheduling policies and their
+selector**, generic measurement processing, and small runnable examples.
 
-## How SatCraft works
+## Satellite–cellular service simulator
 
-<p align="center">
-  <img src="docs/assets/framework.png" width="960" alt="SatCraft optimizes and checks policies offline, fits a context-dependent selector, and deploys the selected policy for joint scheduling.">
-</p>
+The simulator executes the coupled workflow from product arrival to service
+completion. Its Python standard-library implementation supports:
 
-1. **Revise policy code.** Give the LLM agent the scheduling interface, an
-   existing policy, a repair direction, and execution feedback.
-2. **Evaluate complete services.** Check candidate source and replay each
-   scenario, recording completed-service value, resource use, runtime, and
-   execution events.
-3. **Build a policy library.** Retain candidates that satisfy validity and
-   execution budgets, including alternatives useful under different conditions.
-4. **Select and execute.** Fit shallow utility-based trees using initial access
-   features. Select one policy for an episode, then update its joint actions
-   and memory as tasks progress and quality is revealed.
+- **Local computation and output timing:** raw transmission or processing into
+  a smaller output, with explicit computing demand and output readiness.
+- **Dual-access transmission:** time-varying satellite and cellular capacities
+  serving a shared queue.
+- **Cellular usage constraints:** startup delay, traffic allowance and active-slot budgets.
+- **Quality-dependent workflows:** product dependencies, delivered quality,
+  supplementary work, shared deadlines and service acceptance.
+- **Step-wise and full-episode execution:** observations, actions, state updates,
+  event traces and completed-service accounting.
+- **Custom scenarios:** user-supplied capacity sequences, products, service
+  predicates and resource settings.
 
-**Explore the implementation:** [repair loop](src/satcraft/agent/optimize.py) ·
-[prompt templates](src/satcraft/agent/prompts/initial.md) ·
-[full-run evaluation](src/satcraft/evaluation/replay.py) ·
-[policy selector](src/satcraft/selection/tree.py) ·
-[20 frozen policies](src/satcraft/policies/library)
+[Simulator API and scenario guide →](docs/simulator.md) ·
+[Transition code →](src/satcraft/environment)
 
 ## Quick start
 
-**Requirements:** Linux and Python 3.10+. The scheduling and data-processing
-package uses the Python standard library.
+**Requirements:** Linux and Python 3.10+.
 
 ```bash
 git clone https://github.com/luopeng69131/SatCraft.git
@@ -78,136 +79,120 @@ python -m pip install -e .
 satcraft demo
 ```
 
-The demo generates access sequences and dependent service workloads, then runs
-the frozen SatCraft policy across four resource configurations. Results are
-written to `outputs/demo/evaluation.json`.
-
-A minimal Python entry point:
+This runs the bundled SatCraft policy selector and policy library on a small
+synthetic scenario. Outputs go to `outputs/demo/`. Use `satcraft demo --policy
+seed` to explore the same environment with the compact starter policy.
 
 ```python
 from satcraft.data.workload import demo_cases
-from satcraft.evaluation.replay import replay
 from satcraft.policies.deployment import frozen_policy
+from satcraft.simulator import replay
 
-result, state = replay(demo_cases()[0], frozen_policy())
+result, state = replay(demo_cases()[0], frozen_policy(), log=True)
 print(result["service_value"], result["max_service_value"])
+print(state.records[0])
 ```
 
-To replay a supplied candidate through checks, complete-run feedback, policy
-retention, selector fitting, and deployment export:
+For a scenario file and a policy of your own:
 
 ```bash
-satcraft demo --repair-demo --output outputs/repair-demo
+satcraft simulate --cases /path/to/scenarios.json   --policy /path/to/policy.py --trace --output outputs/simulation.json
 ```
+
+## How SatCraft works
+
+<p align="center">
+  <img src="docs/assets/framework.png" width="960" alt="Offline policy revision, complete-run feedback, a valid policy library and context-dependent selection.">
+</p>
+
+1. **Revise policy code.** An LLM agent receives the scheduling interface,
+   current policy, repair direction and execution feedback.
+2. **Execute complete services.** Code checks and simulator runs expose the
+   consequences for output timing, resource use, quality and service completion.
+3. **Retain useful alternatives.** Valid policies enter a reusable library.
+4. **Select and execute.** A shallow selector uses initial access observations
+   and known resource conditions to choose a policy for the episode.
+
+[Agent loop](src/satcraft/agent/optimize.py) ·
+[Prompt templates](src/satcraft/agent/prompts/initial.md) ·
+[Policy selector](src/satcraft/selection/tree.py) ·
+[20 prebuilt policies](src/satcraft/policies/library)
 
 ### Connect an LLM agent
 
-The optimizer exposes a `CandidateProvider` interface. `CommandProvider` sends
-the repair prompt to a configured model client and receives policy code,
-a rationale, and model-usage records as JSON. Implement the client in
-[examples/model_client.py](examples/model_client.py), then point
-[the provider configuration](configs/llm_command.example.json) to it.
+`CandidateProvider` supplies candidate code, a rationale and model-usage
+records. `CommandProvider` connects a model client through a JSON interface;
+[examples/model_client.py](examples/model_client.py) illustrates the client contract.
 
 ```bash
-satcraft optimize \
-  --cases /path/to/processed/development.json \
-  --seed-policy src/satcraft/policies/seed.py \
-  --provider-config /path/to/llm_command.json \
-  --submissions 6 \
-  --output outputs/policy-repair
+satcraft optimize --cases outputs/demo/cases.json   --seed-policy src/satcraft/policies/seed.py   --provider-config /path/to/llm_command.json   --submissions 6 --output outputs/policy-repair
 ```
 
-[Optimization guide →](docs/optimization.md)
+To exercise submission, checks, retention and deployment export with a supplied
+policy, run `satcraft demo --policy seed --repair-demo --output outputs/repair-demo`.
 
-## Work with Starlink and cellular measurements
+[Policy construction guide →](docs/optimization.md)
 
-SatCraft processes synchronized access measurements released by the
+## Work with measured access traces
+
+The trace reader processes locally supplied measurements from the
 [NUWiNS measurement project](https://github.com/NUWiNS/sigmetrics26-exploring-the-5g-digital-divide-in-the-non-contiguous-us-leo-satellites-to-the-rescue),
 associated with *Exploring the 5G Digital Divide in the Non-Contiguous US:
 LEO Satellites to the Rescue?* ([ACM](https://doi.org/10.1145/3771568)).
-
-| Measurement campaign | Collection period | Access pairs used by SatCraft |
-| --- | --- | --- |
-| Alaska road tests | June 2024 | Starlink + AT&T / Verizon |
-| Maui, Hawaii road tests | August 2024 | Starlink + AT&T / Verizon |
-
-Download the processed archives from the original project and extract them
-under a local dataset directory. The pipeline reads paired throughput samples,
-preserves run and gap boundaries, aggregates nominal one-second slots, and
-generates computing tasks and quality-dependent service contracts.
+The Alaska and Maui campaigns collected paired Starlink/cellular measurements
+in June and August 2024, respectively.
 
 ```bash
-satcraft prepare \
-  --dataset-root /path/to/nuwins/datasets \
-  --source-manifest configs/measurement_sources.json \
-  --output /path/to/processed
-
-satcraft evaluate \
-  --cases /path/to/processed/test.json \
-  --output outputs/test-results.json
+satcraft prepare --dataset-root /path/to/nuwins/datasets   --region alaska --carrier att --output /path/to/processed-traces
 ```
 
-The source index identifies 60 measured runs. Processing creates 360
-development cases, 240 validation cases, and 360 test cases. Measured
-downlink throughput supplies the exogenous link-capacity sequences; the
-workload generator supplies computing demands, service dependencies, and
-processed-result quality. The initial eight slots provide the observations
-used for policy selection.
+The processor preserves run and gap boundaries and exports paired capacities
+with source metadata. Combine those capacities with your service workloads
+through `make_case`. The [data guide](docs/data.md) documents input fields,
+slot conversion and source attribution. Measurements are obtained from the
+original authors under their **CC BY 4.0** release.
 
-**Dataset attribution:** the measurements are released by Sizhe Wang and
-coauthors under **CC BY 4.0**. Source links, authors, input fields, and processing
-steps are documented in the [data guide](docs/data.md).
+## Results in the paper
 
-## Results at a glance
-
-In the reported trace-driven experiment, SatCraft achieves the highest
-cumulative completed-service value across the evaluated baselines, with
-gains of **3.61%–16.89%**. The test set contains 360 cases with changing
-Starlink and cellular access and four resource configurations.
+The paper reports completed-service-value gains of **3.61%–16.89%** over the
+compared methods using measured Starlink and cellular access.
 
 <p align="center">
-  <img src="docs/assets/performance.png" width="600" alt="Completed-service value comparison across EDF, Rolling, ADPRL, EdgeOPT, TF-DDRL, and SatCraft.">
+  <img src="docs/assets/performance.png" width="600" alt="The paper's completed-service-value comparison.">
 </p>
 
-| Method | Completed-service value ↑ |
-| --- | ---: |
-| EDF | 22,848 |
-| Rolling | 22,800 |
-| ADPRL | 20,251 |
-| EdgeOPT | 21,244 |
-| TF-DDRL | 22,496 |
-| **SatCraft** | **23,672** |
-
-Values are rounded to integers; learned-policy results average the evaluated
-training seeds. See [the results summary](docs/results.md) for the metric
-definition and evaluation configuration.
+[Reported results →](docs/results.md) · [Read the paper →](https://arxiv.org/abs/2610.29588)
 
 ## Code map
 
 | Module | Purpose |
 | --- | --- |
-| [`agent/`](src/satcraft/agent) | Bounded policy repair, prompts, model-client interface, usage ledger |
-| [`evaluation/`](src/satcraft/evaluation) | Source checks, complete executions, feedback and runtime budgets |
-| [`policies/`](src/satcraft/policies) | Policy library, frozen policies, episode-level selection and execution |
-| [`selection/`](src/satcraft/selection) | Initial access features and utility-based tree fitting |
-| [`environment/`](src/satcraft/environment) | Computing, dual-access transmission, dependencies and service acceptance |
-| [`data/`](src/satcraft/data) | Measurement loading, source selection and workload generation |
+| [`simulator.py`](src/satcraft/simulator.py) | Public simulation entry points |
+| [`environment/`](src/satcraft/environment) | Computing, radio, transmission and service transitions |
+| [`agent/`](src/satcraft/agent) | Candidate providers, prompts and feedback-driven policy construction |
+| [`policies/`](src/satcraft/policies) | Prebuilt policies, library management and deployment |
+| [`selection/`](src/satcraft/selection) | Initial access features and utility-based selection |
+| [`data/`](src/satcraft/data) | Trace processing, custom scenario builder and synthetic example |
+| [`evaluation/`](src/satcraft/evaluation) | Policy checks, execution budgets and full-run feedback |
 
-## Extend SatCraft
+## Citation
 
-- **Add a workload:** define product dependencies, quality conditions, deadlines,
-  and service values through the case schema.
-- **Add a policy:** implement `policy(observation, memory)` and evaluate complete
-  service outcomes using `satcraft evaluate --policy path/to/policy.py`.
-- **Add a model client:** implement `CandidateProvider.propose` or connect a
-  command through `CommandProvider`.
-
-[Architecture](docs/architecture.md) · [Data processing](docs/data.md) ·
-[Policy optimization](docs/optimization.md)
+```bibtex
+@misc{luo2026satcraft,
+  title={SatCraft: Agentic Optimization of Scheduling Policies for Satellite-Cellular Edge Services},
+  author={Pengcheng Luo and Dengke Deng and Zenghui Zhang and Genke Yang and Jian Chu},
+  year={2026},
+  eprint={2610.29588},
+  archivePrefix={arXiv},
+  primaryClass={eess.SY},
+  doi={10.48550/arXiv.2610.29588},
+  url={https://arxiv.org/abs/2610.29588}
+}
+```
 
 ## License and acknowledgments
 
 SatCraft code is released under the [MIT License](LICENSE). The linked NUWiNS
-measurements carry their original **CC BY 4.0** license and attribution;
+measurements carry their original CC BY 4.0 license and attribution;
 see [data attribution](docs/data.md#attribution-and-license).
-We thank the measurement authors for making their traces available to the community.
+We thank the measurement authors for making their traces available.

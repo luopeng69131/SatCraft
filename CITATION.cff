@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use SatCraft, please cite the accompanying paper."
+type: software
+title: SatCraft
+authors:
+  - family-names: Luo
+    given-names: Pengcheng
+  - family-names: Deng
+    given-names: Dengke
+  - family-names: Zhang
+    given-names: Zenghui
+  - family-names: Yang
+    given-names: Genke
+  - family-names: Chu
+    given-names: Jian
+repository-code: "https://github.com/luopeng69131/SatCraft"
+license: MIT
+preferred-citation:
+  type: article
+  title: "SatCraft: Agentic Optimization of Scheduling Policies for Satellite-Cellular Edge Services"
+  authors:
+    - family-names: Luo
+      given-names: Pengcheng
+    - family-names: Deng
+      given-names: Dengke
+    - family-names: Zhang
+      given-names: Zenghui
+    - family-names: Yang
+      given-names: Genke
+    - family-names: Chu
+      given-names: Jian
+  journal: arXiv
+  year: 2026
+  month: 10
+  date-published: "2026-10-21"
+  doi: "10.48550/arXiv.2610.29588"
+  url: "https://arxiv.org/abs/2610.29588"

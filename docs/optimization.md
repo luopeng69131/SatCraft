@@ -5,12 +5,12 @@ complete service executions. Its model-client interface lets a developer
 connect an LLM agent to the same policy checks, replay environment, policy
 library, and selector fitting.
 
-## 1. Prepare development cases
+## 1. Prepare scenarios
 
 Follow the [data guide](data.md), or generate an illustrative case set:
 
 ```bash
-satcraft demo --output outputs/example
+satcraft demo --policy seed --output outputs/example
 ```
 
 ## 2. Connect a model client
@@ -63,7 +63,7 @@ a configuration that points to the implemented client:
 
 ```bash
 satcraft optimize \
-  --cases /path/to/processed/development.json \
+  --cases outputs/example/cases.json \
   --seed-policy src/satcraft/policies/seed.py \
   --provider-config /path/to/llm_command.json \
   --direction "Align cellular activation with processing outputs and reserve capacity for later services." \
@@ -105,14 +105,14 @@ repair-01/
 `ledger.json` records proposal usage and candidate outcomes. Valid alternatives
 enter the library even when their aggregate utility is lower, allowing the
 selector to exploit conditions where they work well. Selector fitting uses
-the development cases; evaluation on validation or test cases executes the
+the supplied construction cases; simulation on additional scenarios executes the
 exported selector and policy code.
 
 ```bash
-satcraft evaluate \
+satcraft simulate \
   --policy outputs/repair-01/deployment \
-  --cases /path/to/processed/test.json \
-  --output outputs/repaired-test.json
+  --cases /path/to/my-scenarios.json \
+  --output outputs/repaired-simulation.json
 ```
 
 Supply a preset tree through `--preset-selector path/to/selector.json` to
@@ -128,7 +128,7 @@ or testing a model-client integration:
 satcraft optimize \
   --cases outputs/example/cases.json \
   --seed-policy src/satcraft/policies/seed.py \
-  --candidate src/satcraft/policies/library/policy_04.py \
+  --candidate src/satcraft/policies/seed.py \
   --submissions 1 \
   --output outputs/candidate-replay
 ```

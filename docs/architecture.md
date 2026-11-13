@@ -1,5 +1,7 @@
 # Architecture and code guide
 
+The [simulator guide](simulator.md) provides runnable scenarios, units and the public API.
+
 ## The service workflow
 
 SatCraft schedules product tasks on a mobile node with one computing processor
@@ -104,6 +106,7 @@ src/satcraft/
   policies/       policy snapshots, frozen library, deployment execution
   selection/      access features, utility-based trees
   environment/    physical transitions and service acceptance
-  data/           paired measurement reader and workload generator
-  cli.py          demo, prepare, evaluate, optimize
+  data/           paired measurement reader and custom scenario builder
+  simulator.py    public full-episode and step-wise simulation entry points
+  cli.py          demo, prepare, simulate, optimize
 ```
