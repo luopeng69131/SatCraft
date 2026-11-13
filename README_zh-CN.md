@@ -13,15 +13,10 @@
 
 [English](README.md) · **简体中文**
 
-[论文](https://arxiv.org/abs/2610.29588) · [仿真器](#卫星与蜂窝服务仿真器) · [快速开始](#快速开始) · [方法](#satcraft-如何工作) · [引用](#引用)
+[仿真器](#卫星与蜂窝服务仿真器) · [快速开始](#快速开始) · [方法](#satcraft-如何工作) · [引用](#引用)
 
 </div>
 
-## 论文
-
-**[SatCraft: Agentic Optimization of Scheduling Policies for Satellite-Cellular Edge Services](https://arxiv.org/abs/2610.29588)**<br>
-Pengcheng Luo, Dengke Deng, Zenghui Zhang, Genke Yang, and Jian Chu<br>
-arXiv:2610.29588，2026 · [PDF](https://arxiv.org/pdf/2610.29588) · [DOI](https://doi.org/10.48550/arXiv.2610.29588)
 
 ## 为什么需要联合调度？
 
@@ -137,6 +132,10 @@ satcraft prepare --dataset-root /path/to/nuwins/datasets   --region alaska --car
 | [`data/`](src/satcraft/data) | 轨迹处理、自定义场景构建与合成示例 |
 | [`evaluation/`](src/satcraft/evaluation) | 策略检查、执行预算与完整运行反馈 |
 
+## 许可与致谢
+
+SatCraft 代码采用 [MIT License](LICENSE)。NUWiNS 测量数据遵循原始 CC BY 4.0 许可与署名要求，详见[数据归属说明](docs/data.md#attribution-and-license)。感谢原测量作者开放轨迹数据。
+
 ## 引用
 
 ```bibtex
@@ -151,7 +150,3 @@ satcraft prepare --dataset-root /path/to/nuwins/datasets   --region alaska --car
   url={https://arxiv.org/abs/2610.29588}
 }
 ```
-
-## 许可与致谢
-
-SatCraft 代码采用 [MIT License](LICENSE)。NUWiNS 测量数据遵循原始 CC BY 4.0 许可与署名要求，详见[数据归属说明](docs/data.md#attribution-and-license)。感谢原测量作者开放轨迹数据。

@@ -13,15 +13,10 @@
 
 **English** · [简体中文](README_zh-CN.md)
 
-[Paper](https://arxiv.org/abs/2610.29588) · [Simulator](#satellitecellular-service-simulator) · [Quick start](#quick-start) · [Method](#how-satcraft-works) · [Citation](#citation)
+[Simulator](#satellitecellular-service-simulator) · [Quick start](#quick-start) · [Method](#how-satcraft-works) · [Citation](#citation)
 
 </div>
 
-## Paper
-
-**[SatCraft: Agentic Optimization of Scheduling Policies for Satellite-Cellular Edge Services](https://arxiv.org/abs/2610.29588)**<br>
-Pengcheng Luo, Dengke Deng, Zenghui Zhang, Genke Yang, and Jian Chu<br>
-arXiv:2610.29588, 2026 · [PDF](https://arxiv.org/pdf/2610.29588) · [DOI](https://doi.org/10.48550/arXiv.2610.29588)
 
 ## Why joint scheduling?
 
@@ -175,6 +170,13 @@ compared methods using measured Starlink and cellular access.
 | [`data/`](src/satcraft/data) | Trace processing, custom scenario builder and synthetic example |
 | [`evaluation/`](src/satcraft/evaluation) | Policy checks, execution budgets and full-run feedback |
 
+## License and acknowledgments
+
+SatCraft code is released under the [MIT License](LICENSE). The linked NUWiNS
+measurements carry their original CC BY 4.0 license and attribution;
+see [data attribution](docs/data.md#attribution-and-license).
+We thank the measurement authors for making their traces available.
+
 ## Citation
 
 ```bibtex
@@ -189,10 +191,3 @@ compared methods using measured Starlink and cellular access.
   url={https://arxiv.org/abs/2610.29588}
 }
 ```
-
-## License and acknowledgments
-
-SatCraft code is released under the [MIT License](LICENSE). The linked NUWiNS
-measurements carry their original CC BY 4.0 license and attribution;
-see [data attribution](docs/data.md#attribution-and-license).
-We thank the measurement authors for making their traces available.
